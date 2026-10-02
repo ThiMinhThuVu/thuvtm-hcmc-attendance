@@ -2,6 +2,8 @@
 
 A public English-language form for collecting student attendance information. Students can securely edit their own response using a private link. The password-protected admin dashboard supports search, filtering, and UTF-8 CSV export.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/ThiMinhThuVu/thuvtm-hcmc-attendance)
+
 ## Run locally
 
 ```bash
