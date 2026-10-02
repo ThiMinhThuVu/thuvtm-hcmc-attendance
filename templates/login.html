@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Admin sign in · THUVTM{% endblock %}
+{% block content %}
+<section class="login-card">
+  <div class="eyebrow">ORGANIZER ACCESS</div>
+  <h1>Admin sign in</h1>
+  <p>Enter the administrator password to view and export student responses.</p>
+  <form method="post">
+    <label class="field">Password
+      <input type="password" name="password" autocomplete="current-password" required autofocus>
+    </label>
+    {% if error %}<div class="message error-message">{{ error }}</div>{% endif %}
+    <button class="primary-btn" type="submit"><span>Sign in</span><span>→</span></button>
+  </form>
+</section>
+{% endblock %}
+

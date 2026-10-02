@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Student Attendance Check · THUVTM{% endblock %}
+{% block header_action %}<a class="text-link" href="{{ url_for('admin') }}">Admin</a>{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="eyebrow">HCMC · IN-PERSON PLANNING</div>
+  <h1>Can you join us<br><em>in person?</em></h1>
+  <p>Please share your current situation so we can plan fairly for students who cannot attend in Ho Chi Minh City.</p>
+  <div class="hero-note"><span>↳</span> Takes about one minute</div>
+</section>
+
+<section class="form-wrap">
+  <div class="step-label"><span>01</span> Your response</div>
+  <form id="student-form" novalidate>
+    <div class="field-grid two-col">
+      <label class="field">Full name
+        <input name="full_name" autocomplete="name" maxlength="120" placeholder="e.g. Nguyen Van An" required>
+        <small class="error" data-error="full_name"></small>
+      </label>
+      <label class="field">Student ID
+        <input name="student_id" autocomplete="off" maxlength="30" placeholder="e.g. 22520001" required>
+        <small class="error" data-error="student_id"></small>
+      </label>
+    </div>
+
+    <label class="field">Email address
+      <input name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@university.edu" required>
+      <small class="error" data-error="email"></small>
+    </label>
+
+    <fieldset>
+      <legend>Are you currently in Ho Chi Minh City?</legend>
+      <div class="choice-grid two-col">
+        <label class="choice"><input type="radio" name="in_hcmc" value="true"><span><b>Yes</b><small>I am currently in HCMC</small></span></label>
+        <label class="choice"><input type="radio" name="in_hcmc" value="false"><span><b>No</b><small>I am currently elsewhere</small></span></label>
+      </div>
+      <small class="error" data-error="in_hcmc"></small>
+    </fieldset>
+
+    <fieldset>
+      <legend>Can you attend the session in person?</legend>
+      <div class="choice-grid three-col">
+        <label class="choice"><input type="radio" name="attendance" value="yes"><span><b>Yes</b><small>I can attend</small></span></label>
+        <label class="choice"><input type="radio" name="attendance" value="no"><span><b>No</b><small>I cannot attend</small></span></label>
+        <label class="choice"><input type="radio" name="attendance" value="unsure"><span><b>Not sure</b><small>I need more time</small></span></label>
+      </div>
+      <small class="error" data-error="attendance"></small>
+    </fieldset>
+
+    <label class="field">Note <span class="optional">Optional</span>
+      <textarea name="reason" maxlength="500" rows="3" placeholder="If you cannot attend, you may briefly tell us why."></textarea>
+      <small class="error" data-error="reason"></small>
+    </label>
+
+    <label class="consent"><input type="checkbox" name="consent" required><span>I understand this information will be used for attendance planning and visible only to the organizer.</span></label>
+    <small class="error" data-error="consent"></small>
+
+    <div id="form-message" class="message" role="status" hidden></div>
+    <button class="primary-btn" type="submit"><span id="submit-label">Submit response</span><span>→</span></button>
+  </form>
+</section>
+
+<dialog id="success-dialog">
+  <button class="dialog-close" aria-label="Close">×</button>
+  <div class="success-icon">✓</div>
+  <h2>Response saved</h2>
+  <p>Your private edit link is saved in this browser. Bookmark or copy it if you may use another device.</p>
+  <div class="copy-row"><input id="edit-link" readonly><button id="copy-link" type="button">Copy</button></div>
+  <button class="primary-btn dialog-done" type="button"><span>Done</span><span>→</span></button>
+</dialog>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='app.js') }}" defer></script>{% endblock %}
+

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Responses · THUVTM{% endblock %}
+{% block header_action %}
+<form action="{{ url_for('admin_logout') }}" method="post"><button class="text-link button-link">Sign out</button></form>
+{% endblock %}
+{% block content %}
+<section class="admin-shell">
+  <div class="admin-heading">
+    <div><div class="eyebrow">LIVE RESPONSE LIST</div><h1>Attendance overview</h1></div>
+    <a class="primary-btn compact" href="{{ url_for('export_csv') }}"><span>Download CSV</span><span>↓</span></a>
+  </div>
+  <div class="stats">
+    <article><span>Total responses</span><strong>{{ summary.total }}</strong></article>
+    <article><span>Currently in HCMC</span><strong>{{ summary.in_hcmc }}</strong></article>
+    <article><span>Cannot attend</span><strong>{{ summary.cannot_attend }}</strong></article>
+    <article class="accent"><span>In HCMC, cannot attend</span><strong>{{ summary.hcmc_cannot_attend }}</strong></article>
+  </div>
+  <div class="table-tools">
+    <label class="search"><span>⌕</span><input id="student-search" type="search" placeholder="Search name, ID, or email…"></label>
+    <label class="filter">Show
+      <select id="attendance-filter"><option value="all">All responses</option><option value="hcmc-no">In HCMC, cannot attend</option><option value="no">Cannot attend</option><option value="yes">Can attend</option><option value="unsure">Not sure</option></select>
+    </label>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Student</th><th>Contact</th><th>In HCMC</th><th>In person</th><th>Note</th><th>Updated</th></tr></thead>
+      <tbody id="student-table">
+      {% for student in students %}
+        <tr data-search="{{ (student.full_name ~ ' ' ~ student.student_id ~ ' ' ~ student.email)|lower }}" data-attendance="{{ student.attendance }}" data-hcmc="{{ student.in_hcmc }}">
+          <td><strong>{{ student.full_name }}</strong><small>{{ student.student_id }}</small></td>
+          <td><a href="mailto:{{ student.email }}">{{ student.email }}</a></td>
+          <td>{{ 'Yes' if student.in_hcmc else 'No' }}</td>
+          <td><span class="status {{ student.attendance }}">{{ {'yes':'Can attend','no':'Cannot attend','unsure':'Not sure'}[student.attendance] }}</span></td>
+          <td class="note-cell">{{ student.reason or '—' }}</td>
+          <td class="date-cell">{{ student.updated_at[:10] }}</td>
+        </tr>
+      {% else %}
+        <tr class="empty"><td colspan="6">No responses yet. Share the public form to get started.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div id="no-results" class="no-results" hidden>No matching responses.</div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='admin.js') }}" defer></script>{% endblock %}

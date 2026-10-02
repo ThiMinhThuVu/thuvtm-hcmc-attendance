@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="HCMC in-person attendance check for students">
+  <title>{% block title %}HCMC Attendance Check{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('index') }}" aria-label="Attendance check home">
+      <span class="brand-mark">T</span>
+      <span>THUVTM <small>Student check-in</small></span>
+    </a>
+    {% block header_action %}{% endblock %}
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer>Student information is used only to plan in-person participation in Ho Chi Minh City.</footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
+
